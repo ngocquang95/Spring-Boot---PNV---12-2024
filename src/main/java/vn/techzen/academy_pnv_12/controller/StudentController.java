@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.techzen.academy_pnv_12.dto.ApiResponse;
 import vn.techzen.academy_pnv_12.dto.exception.AppException;
 import vn.techzen.academy_pnv_12.dto.exception.ErrorCode;
-import vn.techzen.academy_pnv_12.model.Student;
+import vn.techzen.academy_pnv_12.entity.Student;
 import vn.techzen.academy_pnv_12.service.IStudentService;
 
 import java.util.List;
@@ -22,8 +22,10 @@ public class StudentController {
     IStudentService studentService;
 
     @GetMapping
-    public ResponseEntity<List<Student>> getStudents() {
-        return ResponseEntity.ok(studentService.findAll());
+    public ResponseEntity<List<Student>> getStudents(@RequestParam(defaultValue = "") String name,
+                                                     Double fromScore,
+                                                     Double toScore) {
+        return ResponseEntity.ok(studentService.findAll(name, fromScore, toScore));
     }
 
     @GetMapping("/{id}")
